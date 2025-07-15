@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const users = {};
 const messages = [];
 const typingUsers = {};
+const reactions = {};
 
 // Socket.io connection handler
 io.on('connection', (socket) => {
@@ -91,6 +92,14 @@ io.on('connection', (socket) => {
     
     socket.to(to).emit('private_message', messageData);
     socket.emit('private_message', messageData);
+  });
+
+  // Handle message reactions
+  socket.on('add_reaction', ({ messageId, reaction }) => {
+    if (!reactions[messageId]) reactions[messageId] = {};
+    if (!reactions[messageId][reaction]) reactions[messageId][reaction] = 0;
+    reactions[messageId][reaction] += 1;
+    io.emit('reaction_update', { messageId, reactions: reactions[messageId] });
   });
 
   // Handle disconnection
