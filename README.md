@@ -60,7 +60,8 @@ npm install
 - Browser notifications for new messages
 
 ## Screenshots
-(Add screenshots or GIFs of your application here)
+
+![Chat App Screenshot](assets/screenshot.png)
 
 ## Optional: Deployment
 (If deployed, add your live URLs here)
