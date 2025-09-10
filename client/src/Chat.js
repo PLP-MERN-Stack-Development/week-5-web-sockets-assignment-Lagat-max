@@ -12,6 +12,7 @@ const Chat = () => {
   const [reactions, setReactions] = useState({});
   const inputRef = useRef(null);
   const {
+    socket,
     isConnected,
     messages,
     users,
@@ -50,7 +51,7 @@ const Chat = () => {
     return () => {
       socket.off('reaction_update', onReactionUpdate);
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     if (joined && 'Notification' in window && Notification.permission !== 'granted') {
